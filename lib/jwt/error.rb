@@ -5,6 +5,8 @@ module JWT
   DecodeError             = Class.new(StandardError)
   RequiredDependencyError = Class.new(StandardError)
 
+  FormatError             = Class.new(StandardError)
+
   VerificationError  = Class.new(DecodeError)
   ExpiredSignature   = Class.new(DecodeError)
   IncorrectAlgorithm = Class.new(DecodeError)

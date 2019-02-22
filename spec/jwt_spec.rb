@@ -342,25 +342,25 @@ describe JWT do
 
   context 'a token with no segments' do
     it 'raises JWT::DecodeError' do
-      expect { JWT.decode('ThisIsNotAValidJWTToken', nil, true) }.to raise_error(JWT::DecodeError, 'Not enough or too many segments')
+      expect { JWT.decode('ThisIsNotAValidJWTToken', nil, true) }.to raise_error(JWT::FormatError, 'JWS should contains 3 segments.')
     end
   end
 
   context 'a token with not enough segments' do
     it 'raises JWT::DecodeError' do
-      expect { JWT.decode('ThisIsNotAValidJWTToken.second', nil, true) }.to raise_error(JWT::DecodeError, 'Not enough or too many segments')
+      expect { JWT.decode('ThisIsNotAValidJWTToken.second', nil, true) }.to raise_error(JWT::FormatError, 'JWS should contains 3 segments.')
     end
   end
 
   context 'a token with not too many segments' do
     it 'raises JWT::DecodeError' do
-      expect { JWT.decode('ThisIsNotAValidJWTToken.second.third.signature', nil, true) }.to raise_error(JWT::DecodeError, 'Not enough or too many segments')
+      expect { JWT.decode('ThisIsNotAValidJWTToken.second.third.signature', nil, true) }.to raise_error(JWT::FormatError, 'JWS should contains 3 segments.')
     end
   end
 
   context 'a token with two segments but does not require verifying' do
     it 'raises something else than "Not enough or too many segments"' do
-      expect { JWT.decode('ThisIsNotAValidJWTToken.second', nil, false) }.to raise_error(JWT::DecodeError, 'Invalid segment encoding')
+      expect { JWT.decode('ThisIsNotAValidJWTToken.second.', nil, false) }.to raise_error(JWT::DecodeError, 'Invalid segment encoding')
     end
   end
 
